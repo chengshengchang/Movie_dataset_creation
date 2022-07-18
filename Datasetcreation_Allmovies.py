@@ -16,7 +16,7 @@ def get_info_box(url):
     info_row = info_box.find_all('tr')
     
     # Starting save Dict
-    movie_info = {}
+    movie_info = {} 
 
     # get index of rows (get correct info we need)
     for index , row in enumerate(info_row):
@@ -45,16 +45,35 @@ base_url = 'https://en.wikipedia.org'
 
 movie_info_list = []
 
-for row in movie_info:
-    if len(row) == 10:
-        break
+for index,row in enumerate(movie_info):
+    # not run again cuz I already save to json file
+    break
     try:
         ref_path = row['href']
         full_url = base_url + ref_path
         title = row['title']
         movie_info_list.append(get_info_box(full_url))
 
-    except:
-        pass
+    except Exception as e:
+        print(e)
+        print(row.get_text())
 
-print(movie_info_list)
+# Save and Reload data 
+import json 
+
+def save_data(title, data):
+    with open(title , 'w',encoding='utf-8') as f:
+        json.dump(data , f , ensure_ascii=False , indent=2)
+
+def load_data(title):
+    with open(title, encoding='utf-8') as f:
+        return json.load(f)
+
+
+# save_data('movie_info_list.json', movie_info_list)
+
+
+
+# clean our data 
+load_movie_info_list = load_data('movie_info_list.json')
+
