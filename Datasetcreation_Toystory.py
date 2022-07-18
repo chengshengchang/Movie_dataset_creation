@@ -40,5 +40,3 @@ for index , row in enumerate(info_row):
         movie_info[content_key] = content_value
 
 
-
-print(movie_info)
