@@ -41,3 +41,4 @@ for index , row in enumerate(info_row):
 
 
 
+print(movie_info)

@@ -14,7 +14,7 @@ def get_info_box(url):
     soup = bs(r.content)
     info_box = soup.find(class_='infobox vevent')
     info_row = info_box.find_all('tr')
-
+    
     # Starting save Dict
     movie_info = {}
 
@@ -57,8 +57,4 @@ for row in movie_info:
     except:
         pass
 
-
 print(movie_info_list)
-
-
-
