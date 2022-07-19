@@ -1,7 +1,19 @@
 from distutils.log import info
+from tkinter.ttk import Style
 from bs4 import BeautifulSoup as bs
 from numpy import tile
 import requests
+import json
+
+
+# Save and Reload data (json format)
+def save_data(title, data):
+    with open(title , 'w',encoding='utf-8') as f:
+        json.dump(data , f , ensure_ascii=False , indent=2)
+
+def load_data(title):
+    with open(title, encoding='utf-8') as f:
+        return json.load(f)
 
 def get_content_value(row_data):
     if row_data.find('li'):
@@ -23,6 +35,7 @@ def get_info_box(url):
     clean_tags(soup)
 
     info_box = soup.find(class_='infobox vevent')
+   
     info_row = info_box.find_all('tr')
 
     # Starting save Dict
@@ -33,16 +46,19 @@ def get_info_box(url):
         # index == 0 means that is title
         if index == 0:
             movie_info['title'] = row.find('th').get_text(' ',strip=True)
-        elif index == 1:
-            continue
         else:
-            content_key = row.find('th').get_text(' ',strip=True)
-            content_value = get_content_value(row.find('td'))
-            movie_info[content_key] = content_value
+            header = row.find('th')
+            exception = row.find(class_='infobox-header')
+            if header and not exception:
+                content_key = row.find('th').get_text(' ',strip=True)
+                content_value = get_content_value(row.find('td'))
+                movie_info[content_key] = content_value
 
     return movie_info
 
 
+# test_info = get_info_box('https://en.wikipedia.org/wiki/The_Twilight_Zone_Tower_of_Terror#Film_adaptation')
+# save_data('test.json',test_info)
 
 
 r = requests.get('https://en.wikipedia.org/wiki/List_of_Walt_Disney_Pictures_films')
@@ -56,6 +72,8 @@ base_url = 'https://en.wikipedia.org'
 movie_info_list = []
 
 for index,row in enumerate(movie_info):
+    if index % 10 == 0:
+        print('Progress => ', index)
     # not run again cuz I already save to json file
     # break
     try:
@@ -68,16 +86,7 @@ for index,row in enumerate(movie_info):
         print(e)
         print(row.get_text())
 
-# Save and Reload data
-import json
 
-def save_data(title, data):
-    with open(title , 'w',encoding='utf-8') as f:
-        json.dump(data , f , ensure_ascii=False , indent=2)
-
-def load_data(title):
-    with open(title, encoding='utf-8') as f:
-        return json.load(f)
 
 
 save_data('movie_info_list.json', movie_info_list)
@@ -88,9 +97,10 @@ save_data('movie_info_list.json', movie_info_list)
 load_movie_info_list = load_data('movie_info_list.json')
 
 # Subtasks
-# Clean up Reference [1] [2] -> revise def get_info_box():
+# Clean up Reference [1] [2] -> revise def get_info_box(): -> done
+# Split up the long strings -> done
+# Clean up NoneType and Error wiki page -> done
 # Convert running time into an integer
 # Convert Dates into datatime object
-# Split up the long strings
 # Convert Budget & Box office to numbers
 

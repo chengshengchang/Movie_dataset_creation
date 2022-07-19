@@ -1,0 +1,31 @@
+ soup = bs(r.content)
+'NoneType' object has no attribute 'find'
+Zorro the Avenger
+'NoneType' object has no attribute 'find'
+The Sign of Zorro
+'NoneType' object has no attribute 'find'
+The Beatles: Get Back – The Rooftop Concert
+'NoneType' object has no attribute 'find_all'
+Elemental
+'NoneType' object has no attribute 'find_all'
+61
+'NoneType' object has no attribute 'find'
+All Night Long
+'NoneType' object has no attribute 'find_all'
+Keeper of the Lost Cities
+'NoneType' object has no attribute 'find_all'
+Muppet Man
+'NoneType' object has no attribute 'find'
+Shrunk
+'NoneType' object has no attribute 'find'
+Sister Act 3
+'NoneType' object has no attribute 'find_all'
+The Thief
+'NoneType' object has no attribute 'find_all'
+Tom Sawyer
+'NoneType' object has no attribute 'find_all'
+Tower of Terror
+'NoneType' object has no attribute 'find'
+Tron: Ares
+'NoneType' object has no attribute 'find_all'
+FC Barcelona
